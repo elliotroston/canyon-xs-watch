@@ -1,0 +1,48 @@
+name: Canyon XS watch
+
+on:
+  schedule:
+    # Every 30 minutes. GitHub may delay scheduled runs under load.
+    - cron: "*/30 * * * *"
+  workflow_dispatch: {}   # lets you run it by hand from the Actions tab
+
+# Never let two runs race on state.json.
+concurrency:
+  group: canyon-watch
+  cancel-in-progress: false
+
+permissions:
+  contents: write   # required to commit the updated state file
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check Canyon availability
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          NTFY_SERVER: ${{ vars.NTFY_SERVER || 'https://ntfy.sh' }}
+          NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
+        run: python canyon_watch.py
+
+      - name: Persist state
+        run: |
+          if [[ -n "$(git status --porcelain state.json)" ]]; then
+            git config user.name  "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add state.json
+            git commit -m "Update availability state [skip ci]"
+            # Rebase in case a manual run landed first, then push.
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || true
+            git push
+          else
+            echo "No change to state.json"
+          fi
