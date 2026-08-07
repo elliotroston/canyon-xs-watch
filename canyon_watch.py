@@ -325,12 +325,26 @@ def notify(title: str, message: str, priority: int = 3,
         log(f"ERROR sending notification: {exc}")
 
 
-def describe(item: dict) -> str:
-    price = f"{item['currency']} {item['price']}" if item.get("price") else "price n/a"
-    return (
-        f"{item['model']} - {item['colour']} ({item['size']})\n"
-        f"{price} - {item['availability']}"
-    )
+def format_price(item: dict) -> str:
+    raw = item.get("price")
+    if not raw:
+        return "price n/a"
+    symbol = "£" if item.get("currency") == "GBP" else f"{item.get('currency')} "
+    try:
+        return f"{symbol}{float(raw):,.0f}"
+    except (TypeError, ValueError):
+        return f"{symbol}{raw}"
+
+
+def describe(item: dict, with_url: bool = True) -> str:
+    """One notification block. The URL deep-links to this exact colour+size."""
+    lines = [
+        f"{item['model']} - {item['colour']} ({item['size']})",
+        f"{format_price(item)} - {item['availability']}",
+    ]
+    if with_url and item.get("url"):
+        lines.append(item["url"])
+    return "\n".join(lines)
 
 
 # --------------------------------------------------------------------------

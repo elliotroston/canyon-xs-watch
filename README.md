@@ -4,14 +4,16 @@ Watches Canyon's UK Endurace range for **size XS** variants that are buyable
 (`InStock` or `PreOrder`) and pushes a phone alert **only when that set
 actually changes** — never a daily "still available" ping.
 
-Currently tracking 4 variants:
+Checks every 15 minutes. As of 7 Aug 2026, 3 variants match:
 
 | Model | Colour | Status | Price |
 |---|---|---|---|
 | Endurace CFR Di2 | Dark Matter | InStock | £8,500 |
 | Endurace CF SLX 9 Di2 | Crystal White | InStock | £6,649 |
-| Endurace CF SLX 8 Di2 | Champagne | PreOrder | £4,299 |
 | Endurace CF 8 Di2 | Stealth | PreOrder | £3,149 |
+
+(The Endurace CF SLX 8 Di2 in Champagne was pre-orderable on 6 Aug and had
+gone by the next morning — which is the whole reason this exists.)
 
 ## How it works
 
@@ -83,7 +85,15 @@ something genuinely changes.
 | Variant no longer available | 2 (quiet) |
 | Scraper broken 3 checks running | 4 |
 
-Each alert taps straight through to the product page.
+Every alert includes the direct link in the message body **and** as a
+tap-through, deep-linked to that exact colour and size:
+
+```
+NOW IN STOCK: Endurace CFR Di2 XS
+Endurace CFR Di2 - Dark Matter (XS)
+£8,500 - InStock
+https://www.canyon.com/...4434.html?dwvar_4434_pv_rahmenfarbe=R148_P03&dwvar_4434_pv_rahmengroesse=XS
+```
 
 ## Avoiding false alarms
 

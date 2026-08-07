@@ -2,8 +2,8 @@ name: Canyon XS watch
 
 on:
   schedule:
-    # Every 30 minutes. GitHub may delay scheduled runs under load.
-    - cron: "*/30 * * * *"
+    # Every 15 minutes. GitHub may delay scheduled runs under load.
+    - cron: "*/15 * * * *"
   workflow_dispatch: {}   # lets you run it by hand from the Actions tab
 
 # Never let two runs race on state.json.
