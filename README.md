@@ -47,7 +47,7 @@ already-shippable bikes. Reading the product pages catches those too.
    [Android](https://play.google.com/store/apps/details?id=io.heckel.ntfy)).
 2. Tap **+** and subscribe to a topic. Choose something long and unguessable —
    on the public server the topic name *is* the only secret, e.g.
-   `canyon-xs-7f3a9c21b4`.
+   `canyon-xs-REPLACE-WITH-YOUR-OWN-RANDOM-STRING`.
 3. In iOS: Settings → Notifications → ntfy → allow **Time Sensitive** alerts,
    so high-priority "NOW IN STOCK" pings cut through Focus modes.
 
@@ -63,7 +63,7 @@ gh repo create canyon-xs-watch --public --source=. --push
 ### 3. Add the topic as a secret
 
 ```bash
-gh secret set NTFY_TOPIC --body "canyon-xs-7f3a9c21b4"
+gh secret set NTFY_TOPIC --body "canyon-xs-REPLACE-WITH-YOUR-OWN-RANDOM-STRING"
 ```
 
 Optional: `NTFY_TOKEN` if you use a private ntfy server, and a repo variable
