@@ -1,6 +1,18 @@
 {
   "consecutive_failures": 0,
   "items": {
+    "50043540": {
+      "availability": "InStock",
+      "colour": "Stealth",
+      "colour_code": "R129_P01",
+      "currency": "GBP",
+      "model": "Endurace CF 6",
+      "price": "1649.00",
+      "size": "XS",
+      "sku": "50043540",
+      "source_page": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf/endurace-cf-6/4426.html",
+      "url": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf/endurace-cf-6/4426.html?dwvar_4426_pv_rahmenfarbe=R129_P01&dwvar_4426_pv_rahmengroesse=XS"
+    },
     "50043708": {
       "availability": "InStock",
       "colour": "Pro Black",
@@ -38,5 +50,5 @@
       "url": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf-slx/endurace-cf-slx-9-di2/4537.html?dwvar_4537_pv_rahmenfarbe=R130_P01&dwvar_4537_pv_rahmengroesse=XS"
     }
   },
-  "last_check": "2026-08-18T21:58:09.731044+00:00"
+  "last_check": "2026-08-18T22:32:05.339845+00:00"
 }
