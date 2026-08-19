@@ -1,17 +1,29 @@
 {
   "consecutive_failures": 0,
   "items": {
-    "50043540": {
+    "50040338": {
       "availability": "InStock",
+      "colour": "Metal Berry",
+      "colour_code": "R138_P02",
+      "currency": "GBP",
+      "model": "Endurace AllRoad",
+      "price": "899.00",
+      "size": "XS",
+      "sku": "50040338",
+      "source_page": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/allroad/endurace-allroad/4164.html",
+      "url": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/allroad/endurace-allroad/4164.html?dwvar_4164_pv_rahmenfarbe=R138_P02&dwvar_4164_pv_rahmengroesse=XS"
+    },
+    "50043603": {
+      "availability": "PreOrder",
       "colour": "Stealth",
       "colour_code": "R129_P01",
       "currency": "GBP",
-      "model": "Endurace CF 6",
-      "price": "1649.00",
+      "model": "Endurace CF 8 Di2",
+      "price": "3149.00",
       "size": "XS",
-      "sku": "50043540",
-      "source_page": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf/endurace-cf-6/4426.html",
-      "url": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf/endurace-cf-6/4426.html?dwvar_4426_pv_rahmenfarbe=R129_P01&dwvar_4426_pv_rahmengroesse=XS"
+      "sku": "50043603",
+      "source_page": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf/endurace-cf-8-di2/4429.html",
+      "url": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf/endurace-cf-8-di2/4429.html?dwvar_4429_pv_rahmenfarbe=R129_P01&dwvar_4429_pv_rahmengroesse=XS"
     },
     "50043708": {
       "availability": "InStock",
@@ -50,5 +62,5 @@
       "url": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf-slx/endurace-cf-slx-9-di2/4537.html?dwvar_4537_pv_rahmenfarbe=R130_P01&dwvar_4537_pv_rahmengroesse=XS"
     }
   },
-  "last_check": "2026-08-19T07:26:00.083217+00:00"
+  "last_check": "2026-08-19T08:04:14.492151+00:00"
 }
