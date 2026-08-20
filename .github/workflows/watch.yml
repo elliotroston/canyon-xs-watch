@@ -26,9 +26,9 @@ jobs:
     timeout-minutes: 70
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
@@ -45,15 +45,50 @@ jobs:
       # so that counter could never reach its threshold.
       - name: Persist state
         if: always()
+        env:
+          BRANCH: ${{ github.ref_name }}
         run: |
-          if [[ -n "$(git status --porcelain state.json)" ]]; then
-            git config user.name  "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add state.json
-            git commit -m "Update availability state [skip ci]"
-            # Rebase in case a manual run landed first, then push.
-            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || true
-            git push
-          else
+          set -euo pipefail
+
+          if [[ -z "$(git status --porcelain state.json)" ]]; then
             echo "No change to state.json"
+            exit 0
           fi
+
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Long-running runs can overlap, so two of them may write state.json
+          # and collide. The previous `git pull --rebase || true` swallowed the
+          # conflict and left the repo mid-rebase on a detached HEAD, so the
+          # push then died with exit 128.
+          #
+          # Don't merge: state.json is a snapshot of live truth, not an
+          # accumulated history, so there is nothing to reconcile. Replay our
+          # snapshot on top of whatever the remote has and retry on races.
+          cp state.json "$RUNNER_TEMP/state.mine"
+
+          for attempt in 1 2 3 4 5; do
+            git fetch --quiet origin "$BRANCH"
+            git reset --quiet --hard "origin/$BRANCH"
+            cp "$RUNNER_TEMP/state.mine" state.json
+
+            if [[ -z "$(git status --porcelain state.json)" ]]; then
+              echo "Remote already matches our state; nothing to push"
+              exit 0
+            fi
+
+            git add state.json
+            git commit --quiet -m "Update availability state [skip ci]"
+
+            if git push --quiet origin "HEAD:$BRANCH"; then
+              echo "Pushed state on attempt $attempt"
+              exit 0
+            fi
+
+            echo "Push raced with another run; retrying ($attempt/5)"
+            sleep $(( attempt * 3 ))
+          done
+
+          echo "Could not push state after 5 attempts" >&2
+          exit 1
