@@ -1,42 +1,5 @@
 {
   "consecutive_failures": 0,
-  "items": {
-    "50043708": {
-      "availability": "InStock",
-      "colour": "Pro Black",
-      "colour_code": "R148_P01",
-      "currency": "GBP",
-      "model": "Endurace CFR Di2",
-      "price": "8500.00",
-      "size": "XS",
-      "sku": "50043708",
-      "source_page": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cfr/endurace-cfr-di2/4434.html",
-      "url": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cfr/endurace-cfr-di2/4434.html?dwvar_4434_pv_rahmenfarbe=R148_P01&dwvar_4434_pv_rahmengroesse=XS"
-    },
-    "50043722": {
-      "availability": "InStock",
-      "colour": "Dark Matter",
-      "colour_code": "R148_P03",
-      "currency": "GBP",
-      "model": "Endurace CFR Di2",
-      "price": "8500.00",
-      "size": "XS",
-      "sku": "50043722",
-      "source_page": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cfr/endurace-cfr-di2/4434.html",
-      "url": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cfr/endurace-cfr-di2/4434.html?dwvar_4434_pv_rahmenfarbe=R148_P03&dwvar_4434_pv_rahmengroesse=XS"
-    },
-    "50046715": {
-      "availability": "InStock",
-      "colour": "Crystal White",
-      "colour_code": "R130_P01",
-      "currency": "GBP",
-      "model": "Endurace CF SLX 9 Di2",
-      "price": "6649.00",
-      "size": "XS",
-      "sku": "50046715",
-      "source_page": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf-slx/endurace-cf-slx-9-di2/4537.html",
-      "url": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf-slx/endurace-cf-slx-9-di2/4537.html?dwvar_4537_pv_rahmenfarbe=R130_P01&dwvar_4537_pv_rahmengroesse=XS"
-    }
-  },
+  "items": {},
   "last_check": "2026-08-20T15:16:22.996701+00:00"
 }

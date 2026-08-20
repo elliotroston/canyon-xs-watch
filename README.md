@@ -1,19 +1,39 @@
 # Canyon XS endurance-bike watcher
 
 Watches Canyon's UK Endurace range for **size XS** variants that are buyable
-(`InStock` or `PreOrder`) and pushes a phone alert **only when that set
-actually changes** — never a daily "still available" ping.
+(`InStock` or `PreOrder`) **between £1,500 and £4,000**, and pushes a phone
+alert **only when that set actually changes** — never a daily "still
+available" ping.
 
-Checks every 15 minutes. As of 7 Aug 2026, 3 variants match:
+Checks every **3 minutes** (see [Polling](#polling-why-not-just-cron)).
 
-| Model | Colour | Status | Price |
-|---|---|---|---|
-| Endurace CFR Di2 | Dark Matter | InStock | £8,500 |
-| Endurace CF SLX 9 Di2 | Crystal White | InStock | £6,649 |
-| Endurace CF 8 Di2 | Stealth | PreOrder | £3,149 |
+The band drops the entry-level and top-spec bikes. As of 20 Aug 2026 five
+models are in scope, 15 XS colour variants in total:
+
+| Model | XS price | In scope |
+|---|---|---|
+| Endurace AllRoad | £1,099 | no — below band |
+| Endurace CF 6 | £1,649 | no — excluded by name |
+| Endurace CF 7 | £2,199 | **yes** |
+| Endurace CF 7 AXS | £2,849 | **yes** |
+| Endurace CF 8 Di2 | £3,149 | **yes** |
+| Endurace CF SLX 7 Di2 | £3,799 | **yes** |
+| Endurace CF SLX 7 AXS | £3,799 | **yes** |
+| Endurace CF SLX 8 Di2 | £4,299 | no — above band |
+| Endurace CF SLX 9 Di2 | £6,649 | no — above band |
+| Endurace CFR Di2 / CFR AXS | £8,500 | no — above band |
+
+Filtering happens on the **live** price, so a discount pulls a bike into
+scope on its own: if the SLX 8 is ever cut to £3,899, it starts being watched.
+
+A variant whose price can't be parsed is **kept**, not dropped — if Canyon
+changes their markup, an unwanted alert beats a bike silently falling off
+the watch list.
 
 (The Endurace CF SLX 8 Di2 in Champagne was pre-orderable on 6 Aug and had
-gone by the next morning — which is the whole reason this exists.)
+gone by the next morning — which is the whole reason this exists. The XS
+SLX 7 AXS then came and went on 20 Aug without an alert, which is why the
+polling model changed; see below.)
 
 ## How it works
 
@@ -35,6 +55,29 @@ lists every colour × size variant with a real `InStock` / `OutOfStock` /
 `PreOrder` value. Variants are keyed by **SKU**, so a model that's in stock
 in Dark Matter but sold out in Pro Black is tracked as two separate things —
 you get told exactly which colour appeared.
+
+## Polling: why not just cron
+
+The workflow cron says every 15 minutes. GitHub does not honour that. Measured
+over 10 days on this repo: **300 scheduled runs where 963 were due** — a 42
+minute median gap between checks, 77 at the 90th percentile, and a worst case
+of 163 minutes. GitHub deprioritises `schedule` triggers under load and there
+is no way to buy your way out of it on a public repo.
+
+That lost a bike. The XS SLX 7 AXS came into stock and sold out inside one of
+those gaps, so it was never recorded — and because "no longer available" only
+fires for a SKU the watcher had previously *seen*, there was no alert on the
+way in **or** the way out. A miss was completely silent, which is the worst
+possible failure for this thing.
+
+The fix is to stop depending on cron resolution. The cron only *starts* a run;
+each run then polls in a loop for ~50 minutes, checking every 3 minutes. Inside
+a live runner `sleep()` is exact. The workflow's concurrency group keeps one run
+live and one queued, so as one loop finishes the next begins — effectively
+continuous coverage, and about 0.06 requests/second against Canyon.
+
+State is written when the item set actually changes, plus once at the end of
+the run, so a 50-minute loop produces one commit rather than twenty.
 
 Note the in-stock tool alone would *miss pre-orders*: it only lists
 already-shippable bikes. Reading the product pages catches those too.
@@ -117,7 +160,16 @@ Defaults are overridable by environment variable:
 |---|---|---|
 | `CANYON_SIZES` | `XS` | Comma-separated, e.g. `XS,2XS,XS/S` |
 | `CANYON_AVAILABILITY` | `InStock,PreOrder` | Drop `PreOrder` for in-stock only |
+| `CANYON_MIN_PRICE` | `1500` | Inclusive, in the listing currency |
+| `CANYON_MAX_PRICE` | `4000` | Inclusive |
+| `CANYON_EXCLUDE_MODELS` | `Endurace CF 6` | Comma-separated, matched on the exact model name (case-insensitive) |
+| `CANYON_POLL_INTERVAL` | `180` | Seconds between checks within a run |
+| `CANYON_RUN_DURATION` | `3000` | Seconds a run keeps polling; keep below the job's `timeout-minutes` |
 | `CANYON_CATEGORY_URL` | Endurace XS listing | Any Canyon category URL |
+
+`CANYON_EXCLUDE_MODELS` matches the whole name, so it won't accidentally catch
+`Endurace CF 6 Something-Else` if Canyon renames a bike — you'd get an alert
+you don't want rather than losing one you do.
 
 Canyon's other refinement values, found while reverse-engineering the page:
 
@@ -138,3 +190,16 @@ NTFY_TOPIC=your-topic python3 canyon_watch.py
 ```
 
 Without `NTFY_TOPIC` it prints alerts to the console instead of sending them.
+
+That runs the full ~50 minute polling loop. For a single check:
+
+```bash
+CANYON_RUN_DURATION=1 python3 canyon_watch.py
+```
+
+To see everything in the band regardless of stock — useful for checking the
+filters are catching what you expect:
+
+```bash
+CANYON_AVAILABILITY=OutOfStock CANYON_RUN_DURATION=1 python3 canyon_watch.py
+```

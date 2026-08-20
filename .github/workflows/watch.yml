@@ -2,7 +2,11 @@ name: Canyon XS watch
 
 on:
   schedule:
-    # Every 15 minutes. GitHub may delay scheduled runs under load.
+    # GitHub throttles scheduled runs badly (a */15 cron here actually fired
+    # every 42 min on average, 163 min at worst), so the cron only *starts* a
+    # run -- the run itself then polls every 3 min for ~50 min. The concurrency
+    # group below keeps exactly one run live and one queued, which in practice
+    # means continuous coverage.
     - cron: "*/15 * * * *"
   workflow_dispatch: {}   # lets you run it by hand from the Actions tab
 
@@ -17,7 +21,9 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    # Must comfortably exceed CANYON_RUN_DURATION (~50 min) so the loop is
+    # never killed mid-flight.
+    timeout-minutes: 70
 
     steps:
       - uses: actions/checkout@v4
@@ -33,7 +39,12 @@ jobs:
           NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
         run: python canyon_watch.py
 
+      # `if: always()` matters: on a failed check the script exits non-zero, and
+      # without this the state file -- including the consecutive-failure counter
+      # that drives the "watcher needs attention" alert -- was never committed,
+      # so that counter could never reach its threshold.
       - name: Persist state
+        if: always()
         run: |
           if [[ -n "$(git status --porcelain state.json)" ]]; then
             git config user.name  "github-actions[bot]"

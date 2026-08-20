@@ -54,6 +54,25 @@ ACCEPT_AVAILABILITY = {
     if s.strip()
 }
 
+# Price band in the listing currency (GBP on en-gb), inclusive at both ends.
+MIN_PRICE = float(os.environ.get("CANYON_MIN_PRICE", "1500"))
+MAX_PRICE = float(os.environ.get("CANYON_MAX_PRICE", "4000"))
+
+# Models to ignore outright, matched on the exact JSON-LD product name.
+EXCLUDE_MODELS = {
+    m.strip().casefold()
+    for m in os.environ.get("CANYON_EXCLUDE_MODELS", "Endurace CF 6").split(",")
+    if m.strip()
+}
+
+# GitHub throttles `schedule` triggers hard: a */15 cron actually fired every
+# 42 min (median), 163 min at worst, and a bike that came and went inside a gap
+# produced no alert at all. So a run doesn't check once -- it polls for its own
+# lifetime, where sleep() is exact. Overlapping runs are held off by the
+# workflow's concurrency group.
+POLL_INTERVAL = int(os.environ.get("CANYON_POLL_INTERVAL", "180"))      # 3 min
+RUN_DURATION = int(os.environ.get("CANYON_RUN_DURATION", "3000"))       # ~50 min
+
 STATE_FILE = Path(os.environ.get("CANYON_STATE_FILE", "state.json"))
 
 NTFY_SERVER = os.environ.get("NTFY_SERVER", "https://ntfy.sh").rstrip("/")
@@ -173,6 +192,22 @@ def colour_names(page_html: str, page_url: str, all_codes: set[str]) -> dict[str
     return mapping
 
 
+def in_price_band(raw: object) -> bool:
+    """True if a variant's price is inside the configured band.
+
+    An unreadable price *passes*: if Canyon changes their markup, an unwanted
+    alert is a far better failure than a bike disappearing from the watch list
+    without a sound.
+    """
+    if raw in (None, ""):
+        return True
+    try:
+        price = float(raw)  # type: ignore[arg-type]
+    except (TypeError, ValueError):
+        return True
+    return MIN_PRICE <= price <= MAX_PRICE
+
+
 def _product_groups(page_html: str) -> list[dict]:
     """Parse every JSON-LD ProductGroup block on a page."""
     groups = []
@@ -210,6 +245,8 @@ def variants_from_pdp(page_html: str, page_url: str) -> list[dict]:
 
     for data in groups:
         model = (data.get("name") or "").strip()
+        if model.casefold() in EXCLUDE_MODELS:
+            continue
         for variant in data.get("hasVariant", []):
             offer = variant.get("offers")
             if not isinstance(offer, dict):
@@ -222,6 +259,9 @@ def variants_from_pdp(page_html: str, page_url: str) -> list[dict]:
 
             availability = offer.get("availability", "").rsplit("/", 1)[-1]
             if availability not in ACCEPT_AVAILABILITY:
+                continue
+
+            if not in_price_band(offer.get("price")):
                 continue
 
             code_match = re.search(r"pv_rahmenfarbe=([A-Z0-9_]+)", offer_url)
@@ -371,8 +411,12 @@ def save_state(state: dict) -> None:
 # --------------------------------------------------------------------------
 
 
-def main() -> int:
-    state = load_state()
+def check_once(state: dict) -> tuple[bool, bool]:
+    """Run one availability check, mutating `state` in place.
+
+    Returns (succeeded, items_changed). A failed check leaves the previous
+    item set untouched, so it can never be read as "everything sold out".
+    """
     previous: dict[str, dict] = state.get("items", {})
     first_run = "items" not in state
 
@@ -382,7 +426,6 @@ def main() -> int:
         fails = int(state.get("consecutive_failures", 0)) + 1
         state["consecutive_failures"] = fails
         state["last_error"] = str(exc)
-        save_state(state)
         log(f"SCRAPE FAILED ({fails} in a row): {exc}")
 
         # Warn once when it first crosses the threshold, so a silently broken
@@ -394,7 +437,7 @@ def main() -> int:
                 priority=4,
                 tags="warning",
             )
-        return 1
+        return False, False
 
     state["consecutive_failures"] = 0
     state.pop("last_error", None)
@@ -412,14 +455,8 @@ def main() -> int:
             priority=3,
             tags="white_check_mark",
         )
-        save_state(
-            {
-                "items": current,
-                "last_check": datetime.now(timezone.utc).isoformat(),
-                "consecutive_failures": 0,
-            }
-        )
-        return 0
+        state["items"] = current
+        return True, True
 
     new_skus = [s for s in current if s not in previous]
 
@@ -475,14 +512,45 @@ def main() -> int:
     if not (new_skus or gone_skus or upgraded):
         log("No change.")
 
-    state.update(
-        {
-            "items": current,
-            "last_check": datetime.now(timezone.utc).isoformat(),
-        }
-    )
+    state["items"] = current
+    return True, bool(new_skus or gone_skus or upgraded)
+
+
+def main() -> int:
+    band = f"{MIN_PRICE:,.0f}-{MAX_PRICE:,.0f}"
+    log(f"Watching sizes {sorted(TARGET_SIZES)} in GBP {band}, "
+        f"excluding {sorted(EXCLUDE_MODELS) or 'nothing'}")
+    log(f"Polling every {POLL_INTERVAL}s for up to {RUN_DURATION}s")
+
+    state = load_state()
+    deadline = time.monotonic() + RUN_DURATION
+    checks = 0
+    successes = 0
+
+    while True:
+        checks += 1
+        log(f"--- check {checks} ---")
+        ok, changed = check_once(state)
+        successes += ok
+
+        # Write straight away on a real change: if the runner is cancelled
+        # mid-loop, the alerts we've already sent stay recorded and don't get
+        # re-sent by the next run.
+        if changed:
+            state["last_check"] = datetime.now(timezone.utc).isoformat()
+            save_state(state)
+
+        if time.monotonic() + POLL_INTERVAL > deadline:
+            break
+        time.sleep(POLL_INTERVAL)
+
+    # One final write, so the committed state carries a fresh timestamp even on
+    # a quiet run -- and so the whole loop produces one commit, not twenty.
+    state["last_check"] = datetime.now(timezone.utc).isoformat()
     save_state(state)
-    return 0
+
+    log(f"Done: {checks} checks, {successes} succeeded")
+    return 0 if successes else 1
 
 
 if __name__ == "__main__":
