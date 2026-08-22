@@ -1,18 +1,5 @@
 {
   "consecutive_failures": 0,
-  "items": {
-    "50043631": {
-      "availability": "PreOrder",
-      "colour": "Champagne",
-      "colour_code": "R130_P02",
-      "currency": "GBP",
-      "model": "Endurace CF SLX 7 Di2",
-      "price": "3799.00",
-      "size": "XS",
-      "sku": "50043631",
-      "source_page": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf-slx/endurace-cf-slx-7-di2/4430.html",
-      "url": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf-slx/endurace-cf-slx-7-di2/4430.html?dwvar_4430_pv_rahmenfarbe=R130_P02&dwvar_4430_pv_rahmengroesse=XS"
-    }
-  },
-  "last_check": "2026-08-22T22:10:40.043397+00:00"
+  "items": {},
+  "last_check": "2026-08-22T22:59:28.316093+00:00"
 }
