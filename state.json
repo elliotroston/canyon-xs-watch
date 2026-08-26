@@ -1,42 +1,5 @@
 {
   "consecutive_failures": 0,
-  "items": {
-    "50043645": {
-      "availability": "PreOrder",
-      "colour": "Crystal White",
-      "colour_code": "R130_P01",
-      "currency": "GBP",
-      "model": "Endurace CF SLX 7 AXS",
-      "price": "3799.00",
-      "size": "XS",
-      "sku": "50043645",
-      "source_page": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf-slx/endurace-cf-slx-7-axs/4431.html",
-      "url": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf-slx/endurace-cf-slx-7-axs/4431.html?dwvar_4431_pv_rahmenfarbe=R130_P01&dwvar_4431_pv_rahmengroesse=XS"
-    },
-    "50043652": {
-      "availability": "PreOrder",
-      "colour": "Champagne",
-      "colour_code": "R130_P02",
-      "currency": "GBP",
-      "model": "Endurace CF SLX 7 AXS",
-      "price": "3799.00",
-      "size": "XS",
-      "sku": "50043652",
-      "source_page": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf-slx/endurace-cf-slx-7-axs/4431.html",
-      "url": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf-slx/endurace-cf-slx-7-axs/4431.html?dwvar_4431_pv_rahmenfarbe=R130_P02&dwvar_4431_pv_rahmengroesse=XS"
-    },
-    "50043659": {
-      "availability": "PreOrder",
-      "colour": "Atlantic Blue",
-      "colour_code": "R130_P03",
-      "currency": "GBP",
-      "model": "Endurace CF SLX 7 AXS",
-      "price": "3799.00",
-      "size": "XS",
-      "sku": "50043659",
-      "source_page": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf-slx/endurace-cf-slx-7-axs/4431.html",
-      "url": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf-slx/endurace-cf-slx-7-axs/4431.html?dwvar_4431_pv_rahmenfarbe=R130_P03&dwvar_4431_pv_rahmengroesse=XS"
-    }
-  },
-  "last_check": "2026-08-26T12:58:45.154025+00:00"
+  "items": {},
+  "last_check": "2026-08-26T13:47:51.195997+00:00"
 }
