@@ -1,30 +1,5 @@
 {
   "consecutive_failures": 0,
-  "items": {
-    "50043603": {
-      "availability": "InStock",
-      "colour": "Stealth",
-      "colour_code": "R129_P01",
-      "currency": "GBP",
-      "model": "Endurace CF 8 Di2",
-      "price": "3149.00",
-      "size": "XS",
-      "sku": "50043603",
-      "source_page": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf/endurace-cf-8-di2/4429.html",
-      "url": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf/endurace-cf-8-di2/4429.html?dwvar_4429_pv_rahmenfarbe=R129_P01&dwvar_4429_pv_rahmengroesse=XS"
-    },
-    "50043610": {
-      "availability": "InStock",
-      "colour": "Milk Tea",
-      "colour_code": "R129_P02",
-      "currency": "GBP",
-      "model": "Endurace CF 8 Di2",
-      "price": "3149.00",
-      "size": "XS",
-      "sku": "50043610",
-      "source_page": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf/endurace-cf-8-di2/4429.html",
-      "url": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf/endurace-cf-8-di2/4429.html?dwvar_4429_pv_rahmenfarbe=R129_P02&dwvar_4429_pv_rahmengroesse=XS"
-    }
-  },
-  "last_check": "2026-08-27T05:52:33.624495+00:00"
+  "items": {},
+  "last_check": "2026-08-27T17:19:48.122671+00:00"
 }
