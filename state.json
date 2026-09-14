@@ -1,6 +1,30 @@
 {
   "consecutive_failures": 0,
   "items": {
+    "50043561": {
+      "availability": "PreOrder",
+      "colour": "Stealth",
+      "colour_code": "R129_P01",
+      "currency": "GBP",
+      "model": "Endurace CF 7",
+      "price": "2199.00",
+      "size": "XS",
+      "sku": "50043561",
+      "source_page": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf/endurace-cf-7/4427.html",
+      "url": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf/endurace-cf-7/4427.html?dwvar_4427_pv_rahmenfarbe=R129_P01&dwvar_4427_pv_rahmengroesse=XS"
+    },
+    "50043568": {
+      "availability": "PreOrder",
+      "colour": "Milk Tea",
+      "colour_code": "R129_P02",
+      "currency": "GBP",
+      "model": "Endurace CF 7",
+      "price": "2199.00",
+      "size": "XS",
+      "sku": "50043568",
+      "source_page": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf/endurace-cf-7/4427.html",
+      "url": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf/endurace-cf-7/4427.html?dwvar_4427_pv_rahmenfarbe=R129_P02&dwvar_4427_pv_rahmengroesse=XS"
+    },
     "50043582": {
       "availability": "PreOrder",
       "colour": "Stealth",
@@ -48,19 +72,7 @@
       "sku": "50043603",
       "source_page": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf/endurace-cf-8-di2/4429.html",
       "url": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf/endurace-cf-8-di2/4429.html?dwvar_4429_pv_rahmenfarbe=R129_P01&dwvar_4429_pv_rahmengroesse=XS"
-    },
-    "50043617": {
-      "availability": "PreOrder",
-      "colour": "Strawberry Frosting",
-      "colour_code": "R129_P03",
-      "currency": "GBP",
-      "model": "Endurace CF 8 Di2",
-      "price": "3149.00",
-      "size": "XS",
-      "sku": "50043617",
-      "source_page": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf/endurace-cf-8-di2/4429.html",
-      "url": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf/endurace-cf-8-di2/4429.html?dwvar_4429_pv_rahmenfarbe=R129_P03&dwvar_4429_pv_rahmengroesse=XS"
     }
   },
-  "last_check": "2026-09-14T11:28:30.695634+00:00"
+  "last_check": "2026-09-14T17:24:01.995424+00:00"
 }
