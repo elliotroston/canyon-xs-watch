@@ -1,18 +1,5 @@
 {
   "consecutive_failures": 0,
-  "items": {
-    "50043582": {
-      "availability": "InStock",
-      "colour": "Stealth",
-      "colour_code": "R129_P01",
-      "currency": "GBP",
-      "model": "Endurace CF 7 AXS",
-      "price": "2849.00",
-      "size": "XS",
-      "sku": "50043582",
-      "source_page": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf/endurace-cf-7-axs/4428.html",
-      "url": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf/endurace-cf-7-axs/4428.html?dwvar_4428_pv_rahmenfarbe=R129_P01&dwvar_4428_pv_rahmengroesse=XS"
-    }
-  },
-  "last_check": "2026-10-11T19:07:23.864879+00:00"
+  "items": {},
+  "last_check": "2026-10-11T23:06:37.809829+00:00"
 }
