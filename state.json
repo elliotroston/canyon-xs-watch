@@ -1,18 +1,6 @@
 {
   "consecutive_failures": 0,
   "items": {
-    "50043624": {
-      "availability": "PreOrder",
-      "colour": "Crystal White",
-      "colour_code": "R130_P01",
-      "currency": "GBP",
-      "model": "Endurace CF SLX 7 Di2",
-      "price": "3799.00",
-      "size": "XS",
-      "sku": "50043624",
-      "source_page": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf-slx/endurace-cf-slx-7-di2/4430.html",
-      "url": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf-slx/endurace-cf-slx-7-di2/4430.html?dwvar_4430_pv_rahmenfarbe=R130_P01&dwvar_4430_pv_rahmengroesse=XS"
-    },
     "50043631": {
       "availability": "PreOrder",
       "colour": "Champagne",
@@ -38,5 +26,5 @@
       "url": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf-slx/endurace-cf-slx-7-di2/4430.html?dwvar_4430_pv_rahmenfarbe=R130_P03&dwvar_4430_pv_rahmengroesse=XS"
     }
   },
-  "last_check": "2026-10-20T18:47:22.656627+00:00"
+  "last_check": "2026-10-20T22:19:58.728557+00:00"
 }
