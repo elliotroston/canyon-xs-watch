@@ -1,5 +1,18 @@
 {
   "consecutive_failures": 0,
-  "items": {},
-  "last_check": "2026-10-22T20:44:06.974858+00:00"
+  "items": {
+    "50043645": {
+      "availability": "InStock",
+      "colour": "Crystal White",
+      "colour_code": "R130_P01",
+      "currency": "GBP",
+      "model": "Endurace CF SLX 7 AXS",
+      "price": "3799.00",
+      "size": "XS",
+      "sku": "50043645",
+      "source_page": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf-slx/endurace-cf-slx-7-axs/4431.html",
+      "url": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf-slx/endurace-cf-slx-7-axs/4431.html?dwvar_4431_pv_rahmenfarbe=R130_P01&dwvar_4431_pv_rahmengroesse=XS"
+    }
+  },
+  "last_check": "2026-10-22T23:49:50.901136+00:00"
 }
