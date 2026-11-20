@@ -13,18 +13,6 @@
       "source_page": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf/endurace-cf-7/4427.html",
       "url": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf/endurace-cf-7/4427.html?dwvar_4427_pv_rahmenfarbe=R129_P01&dwvar_4427_pv_rahmengroesse=XS"
     },
-    "50043568": {
-      "availability": "PreOrder",
-      "colour": "Milk Tea",
-      "colour_code": "R129_P02",
-      "currency": "GBP",
-      "model": "Endurace CF 7",
-      "price": "2199.00",
-      "size": "XS",
-      "sku": "50043568",
-      "source_page": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf/endurace-cf-7/4427.html",
-      "url": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf/endurace-cf-7/4427.html?dwvar_4427_pv_rahmenfarbe=R129_P02&dwvar_4427_pv_rahmengroesse=XS"
-    },
     "50043589": {
       "availability": "PreOrder",
       "colour": "Milk Tea",
@@ -38,7 +26,7 @@
       "url": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf/endurace-cf-7-axs/4428.html?dwvar_4428_pv_rahmenfarbe=R129_P02&dwvar_4428_pv_rahmengroesse=XS"
     },
     "50043603": {
-      "availability": "PreOrder",
+      "availability": "InStock",
       "colour": "Stealth",
       "colour_code": "R129_P01",
       "currency": "GBP",
@@ -96,19 +84,7 @@
       "sku": "50043645",
       "source_page": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf-slx/endurace-cf-slx-7-axs/4431.html",
       "url": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf-slx/endurace-cf-slx-7-axs/4431.html?dwvar_4431_pv_rahmenfarbe=R130_P01&dwvar_4431_pv_rahmengroesse=XS"
-    },
-    "50043659": {
-      "availability": "PreOrder",
-      "colour": "Atlantic Blue",
-      "colour_code": "R130_P03",
-      "currency": "GBP",
-      "model": "Endurace CF SLX 7 AXS",
-      "price": "3799.00",
-      "size": "XS",
-      "sku": "50043659",
-      "source_page": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf-slx/endurace-cf-slx-7-axs/4431.html",
-      "url": "https://www.canyon.com/en-gb/road-bikes/endurance-bikes/endurace/cf-slx/endurace-cf-slx-7-axs/4431.html?dwvar_4431_pv_rahmenfarbe=R130_P03&dwvar_4431_pv_rahmengroesse=XS"
     }
   },
-  "last_check": "2026-11-19T19:58:07.748689+00:00"
+  "last_check": "2026-11-20T02:04:48.658365+00:00"
 }
